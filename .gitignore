@@ -46,5 +46,4 @@ Thumbs.db
 .runtimeconfig.json
 
 # Apps Environments
-/apps/mialbum/src/environments/environment.prod.ts
-/apps/mialbum/src/environments/environment.ts
+/apps/mialbum/src/environments/**
