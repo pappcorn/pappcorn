@@ -44,3 +44,7 @@ Thumbs.db
 .firebase
 *-debug.log
 .runtimeconfig.json
+
+# Apps Environments
+apps/mialbum/environments/environment.prod.ts
+apps/mialbum/environments/environment.ts
