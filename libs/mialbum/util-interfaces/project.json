@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/mialbum/util-interfaces/src",
+  "prefix": "pappcorn",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/mialbum/util-interfaces"],
+      "options": {
+        "jestConfig": "libs/mialbum/util-interfaces/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/mialbum/util-interfaces/**/*.ts",
+          "libs/mialbum/util-interfaces/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

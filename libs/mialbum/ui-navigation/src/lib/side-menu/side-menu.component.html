@@ -1,0 +1,99 @@
+<div class="text-white side-menu-container">
+  <div *ngIf="user">
+    <p class="mat-title">¡Hola {{ user.displayName }}!</p>
+    <p class="mat-body-1">{{ user.email }}</p>
+  </div>
+
+  <div *ngIf="!user" class="spacer-60"></div>
+
+  <div class="album-summary-container">
+    <p class="mat-body-2">Resumen de tus avances:</p>
+    <div fxLayout="row">
+      <span class="mat-display-1">
+        {{ totalFiguresCompleted() }} / {{ totalFigures() }}
+      </span>
+      <div class="bottom-text">Total</div>
+    </div>
+    <mat-progress-bar
+      mode="determinate"
+      color="accent"
+      [value]="(totalFiguresCompleted() / totalFigures()) * 100"
+    ></mat-progress-bar>
+    <span class="mat-caption">
+      {{ totalFiguresCompleted() / totalFigures() | percent: '1.0-2' }}
+      completado
+    </span>
+    <div fxLayout="column" fxLayoutGap="12px" class="summary-list">
+      <div fxLayout="row" fxLayoutAlign="space-between">
+        <span class="mat-title">
+          {{ totalEmblemFiguresCompleted() }} / {{ totalEmblemFigures() }}
+        </span>
+        <div class="mat-body-2">Emblemas</div>
+      </div>
+    </div>
+    <div fxLayout="column" fxLayoutGap="12px" class="summary-list">
+      <div fxLayout="row" fxLayoutAlign="space-between">
+        <span class="mat-title">
+          {{ totalStadiumFiguresCompleted() }} / {{ totalStadiumFigures() }}
+        </span>
+        <div class="mat-body-2">Estadios</div>
+      </div>
+    </div>
+    <div fxLayout="column" fxLayoutGap="12px" class="summary-list">
+      <div fxLayout="row" fxLayoutAlign="space-between">
+        <span class="mat-title">
+          {{ totalTeamEmblemFiguresCompleted() }} /
+          {{ totalTeamEmblemFigures() }}
+        </span>
+        <div class="mat-body-2">Escudos</div>
+      </div>
+    </div>
+    <div fxLayout="column" fxLayoutGap="12px" class="summary-list">
+      <div fxLayout="row" fxLayoutAlign="space-between">
+        <span class="mat-title">
+          {{ totalPlayersFiguresCompleted() }} / {{ totalPlayersFigures() }}
+        </span>
+        <div class="mat-body-2">Jugadores</div>
+      </div>
+    </div>
+    <div fxLayout="column" fxLayoutGap="12px" class="summary-list">
+      <div fxLayout="row" fxLayoutAlign="space-between">
+        <span class="mat-title">
+          {{ totalFifaiguresCompleted() }} / {{ totalFifaFigures() }}
+        </span>
+        <div class="mat-body-2">Museo</div>
+      </div>
+    </div>
+    <div fxLayout="column" fxLayoutGap="12px" class="summary-list">
+      <div fxLayout="row" fxLayoutAlign="space-between">
+        <span class="mat-title">
+          {{ totalBelieversFiguresCompleted() }} / {{ totalBelieversFigures() }}
+        </span>
+        <div class="mat-body-2">Team Believers</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bottom-button">
+    <div class="text-center">
+      <button
+        *ngIf="!user"
+        mat-raised-button
+        color="primary"
+        (click)="openBottomSheet()"
+      >
+        INICIAR SESIÓN
+      </button>
+    </div>
+    <div class="my-16 papp-icon" fxLayout="row" fxLayoutAlign="space-between">
+      <a href="https://www.pappcorn.com" target="_blank">
+        <img src="assets/papp-icon.svg" alt="crispeta equipo pappcorn" />
+      </a>
+      <span class="mat-body-1 mx-8">Creada por el #EquipoPappCorn</span>
+    </div>
+    <button *ngIf="user" mat-button class="text-white" (click)="logout.emit()">
+      <mat-icon>logout</mat-icon>
+      Salir de tu cuenta
+    </button>
+  </div>
+</div>

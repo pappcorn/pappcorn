@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/mialbum/feature-shell/src",
+  "prefix": "pappcorn",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/mialbum/feature-shell"],
+      "options": {
+        "jestConfig": "libs/mialbum/feature-shell/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/mialbum/feature-shell/**/*.ts",
+          "libs/mialbum/feature-shell/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

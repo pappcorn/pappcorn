@@ -1,0 +1,22 @@
+<mat-toolbar class="toolbar mat-elevation-z3">
+  <mat-toolbar-row>
+    <button mat-icon-button (click)="toggleSidenav.emit()">
+      <mat-icon>menu</mat-icon>
+    </button>
+    <div fxFlex></div>
+    MIALBUM.CO
+    <div fxFlex></div>
+    <a href="https://www.pappcorn.com" target="_blank">
+      <img
+        src="assets/papp-icon.svg"
+        alt="crispeta equipo pappcorn"
+        class="papp-icon"
+      />
+    </a>
+    <button mat-icon-button (click)="_toggleSubtoolbar()">
+      <mat-icon *ngIf="!showFilters">search</mat-icon>
+      <mat-icon *ngIf="showFilters">close</mat-icon>
+    </button>
+  </mat-toolbar-row>
+  <mat-toolbar-row *ngIf="showFilters"> Filters </mat-toolbar-row>
+</mat-toolbar>

@@ -1,0 +1,114 @@
+<div class="bottom-sheet">
+  <div *ngIf="authService.user$ | async as user; else noUser">
+    <p class="mat-title">¡Hola {{ user.displayName }}!</p>
+  </div>
+  <ng-template #noUser>
+    <div *ngIf="!showCreateAccount && !showLogin">
+      <p class="mat-title">¡Empecemos!</p>
+      <p class="mat-body-1">
+        Para llevar personalmente tu registro, debes crear una cuenta e iniciar
+        sesión
+      </p>
+      <div
+        class="w-100 text-center bottom-sheet__buttons"
+        fxLayout="column"
+        fxLayoutGap="20px"
+      >
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="showCreateAccount = true"
+        >
+          CREAR CUENTA
+        </button>
+        <button mat-raised-button color="accent" (click)="showLogin = true">
+          INICIAR SESIÓN
+        </button>
+        <button
+          mat-raised-button
+          color="accent"
+          (click)="authService.loginWithGoogle()"
+        >
+          INICIAR SESIÓN CON GOOGLE
+        </button>
+      </div>
+    </div>
+    <div *ngIf="showCreateAccount">
+      <p class="mat-title">Crear mi cuenta</p>
+      <p class="mat-body-1">
+        Completa estos 3 campos y podrás empezar a llenar tu álbum.
+      </p>
+      <div fxLayout="column" fxLayoutGap="12px">
+        <form [formGroup]="createAccountForm">
+          <mat-form-field appearance="fill" class="w-100">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" />
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="w-100">
+            <mat-label>Contraseña</mat-label>
+            <input matInput formControlName="password" />
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="w-100">
+            <mat-label>Nombre</mat-label>
+            <input matInput formControlName="name" />
+          </mat-form-field>
+        </form>
+        <mat-radio-group [(ngModel)]="acceptTerms">
+          <mat-radio-button [value]="true">
+            Acepta nuestra <a href="">política de datos.</a>
+          </mat-radio-button>
+        </mat-radio-group>
+        <span class="mat-caption"
+          >✋ Prometemos no enviarte spam y tratar tus datos con respeto.</span
+        >
+        <div class="text-center">
+          <button
+            mat-raised-button
+            [disabled]="createAccountForm.invalid || !acceptTerms"
+            color="accent"
+            (click)="
+              authService.createUserWithEmailAndPassword(
+                createAccountForm.value['email'],
+                createAccountForm.value['password'],
+                createAccountForm.value['name']
+              )
+            "
+          >
+            CREAR MI CUENTA
+          </button>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="showLogin">
+      <p class="mat-title">Iniciar sesión</p>
+      <p class="mat-body-1">Ingresa tus datos y continua llenando tu álbum.</p>
+      <div fxLayout="column" fxLayoutGap="12px">
+        <form [formGroup]="loginForm">
+          <mat-form-field appearance="fill" class="w-100">
+            <mat-label>Email</mat-label>
+            <input matInput formControlName="email" />
+          </mat-form-field>
+          <mat-form-field appearance="fill" class="w-100">
+            <mat-label>Contraseña</mat-label>
+            <input matInput formControlName="password" />
+          </mat-form-field>
+        </form>
+        <div class="text-center">
+          <button
+            mat-raised-button
+            [disabled]="createAccountForm.invalid || !acceptTerms"
+            color="accent"
+            (click)="
+              authService.loginWithUserAndPassword(
+                loginForm.value['email'],
+                loginForm.value['password']
+              )
+            "
+          >
+            INGRESAR
+          </button>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</div>

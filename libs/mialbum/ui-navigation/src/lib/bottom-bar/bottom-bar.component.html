@@ -1,0 +1,14 @@
+<mat-toolbar class="bottom-bar mat-elevation-z3">
+  <div fxFlex></div>
+  <div *ngIf="user; else noUser">
+    <button mat-raised-button color="primary" (click)="saveChanges.emit()">
+      GUARDAR CAMBIOS
+    </button>
+  </div>
+  <ng-template #noUser>
+    <button mat-raised-button color="primary" (click)="openBottomSheet()">
+      PARA GUARDAR INICIA SESIÓN
+    </button>
+  </ng-template>
+  <div fxFlex></div>
+</mat-toolbar>

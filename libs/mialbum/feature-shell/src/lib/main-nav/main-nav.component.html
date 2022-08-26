@@ -1,0 +1,28 @@
+<mat-drawer-container>
+  <mat-drawer #drawer mode="over" class="side-menu">
+    <pappcorn-side-menu
+      [user]="authService.user$ | async"
+      [album]="albumService.album$ | async"
+      (logout)="authService.logout()"
+    ></pappcorn-side-menu
+  ></mat-drawer>
+  <mat-drawer-content>
+    <pappcorn-toolbar-web
+      (toggleSidenav)="drawer.toggle()"
+      (toggleSubtoolbar)="subToolbarOpen = !subToolbarOpen"
+    ></pappcorn-toolbar-web>
+    <div
+      [ngClass]="{
+        'main-content__subtoolbar': subToolbarOpen,
+        'main-content': !subToolbarOpen
+      }"
+    >
+      <router-outlet></router-outlet>
+    </div>
+    <pappcorn-bottom-bar
+      *ngIf="albumService.unSavedChanges$ | async"
+      [user]="authService.user$ | async"
+      (saveChanges)="albumService.saveAlbum()"
+    ></pappcorn-bottom-bar>
+  </mat-drawer-content>
+</mat-drawer-container>
