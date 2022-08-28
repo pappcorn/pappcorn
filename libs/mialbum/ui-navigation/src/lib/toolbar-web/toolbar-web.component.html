@@ -32,7 +32,11 @@
           [(ngModel)]="searchKeyword"
           (keyup)="searchInput.emit(searchKeyword ?? '')"
         />
-        <mat-icon matSuffix *ngIf="searchKeyword && searchKeyword > ''">
+        <mat-icon
+          matSuffix
+          *ngIf="searchKeyword && searchKeyword > ''"
+          (click)="searchInput.emit('')"
+        >
           close
         </mat-icon>
         <mat-icon matSuffix *ngIf="searchKeyword === ''">search</mat-icon>
