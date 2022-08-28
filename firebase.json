@@ -7,7 +7,9 @@
     {
       "target": "mialbum-dev",
       "public": "dist/apps/mialbum",
-      "ignore": ["**/.*"],
+      "ignore": [
+        "**/.*"
+      ],
       "headers": [
         {
           "source": "*.[0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f][0-9a-f].+(css|js)",
@@ -49,5 +51,8 @@
     "ui": {
       "enabled": true
     }
+  },
+  "storage": {
+    "rules": "storage.rules"
   }
 }
