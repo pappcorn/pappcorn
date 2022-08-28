@@ -339,7 +339,7 @@ function newTeam(category: FigureCategory, prefix: FigurePrefix): Figure[] {
       checked: false,
       category,
       prefix,
-      type: FigureType.EMBLEM,
+      type: number === 1 ? FigureType.EMBLEM : FigureType.PLAYER,
       number,
     });
   }

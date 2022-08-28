@@ -6,17 +6,38 @@
     <div fxFlex></div>
     MIALBUM.CO
     <div fxFlex></div>
-    <a href="https://www.pappcorn.com" target="_blank">
+    <a
+      href="https://pappcorn.com?utm_medium=papp-icon&utm_source=mialbum-web&utm_campaign=papp-icon_mialbum-web"
+      target="_blank"
+    >
       <img
         src="assets/papp-icon.svg"
         alt="crispeta equipo pappcorn"
         class="papp-icon"
       />
     </a>
-    <button mat-icon-button (click)="_toggleSubtoolbar()">
+    <button mat-icon-button (click)="_toggleSubtoolbar()" *ngIf="false">
       <mat-icon *ngIf="!showFilters">search</mat-icon>
       <mat-icon *ngIf="showFilters">close</mat-icon>
     </button>
   </mat-toolbar-row>
-  <mat-toolbar-row *ngIf="showFilters"> Filters </mat-toolbar-row>
+  <mat-toolbar-row *ngIf="showFilters" class="toolbar-row">
+    <div fxFlex></div>
+    <div class="search-input">
+      <mat-form-field appearance="legacy" class="w-100">
+        <mat-label class="mat-body-2">Busca tu figura por el prefijo</mat-label>
+        <input
+          matInput
+          placeholder="FFW, ARG, BRA, ECU, etc..."
+          [(ngModel)]="searchKeyword"
+          (keyup)="searchInput.emit(searchKeyword ?? '')"
+        />
+        <mat-icon matSuffix *ngIf="searchKeyword && searchKeyword > ''">
+          close
+        </mat-icon>
+        <mat-icon matSuffix *ngIf="searchKeyword === ''">search</mat-icon>
+      </mat-form-field>
+    </div>
+    <div fxFlex></div>
+  </mat-toolbar-row>
 </mat-toolbar>

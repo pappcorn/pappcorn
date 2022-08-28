@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { AlbumService } from '@pappcorn/mialbum/data-album';
 import {
   Album,
@@ -8,8 +9,7 @@ import {
   FigureSection,
 } from '@pappcorn/mialbum/util-interfaces';
 import { AuthService } from '@pappcorn/shared/data-auth';
-import { filter, switchMap } from 'rxjs';
-import { shareReplay } from 'rxjs/operators';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'pappcorn-album',
@@ -27,13 +27,18 @@ export class AlbumComponent {
 
   protected readonly album$ = this.albumService.album$;
 
+  private _filteredFifures = new BehaviorSubject<Figure[]>([] as Figure[]);
+  readonly filteredFigures$ = this._filteredFifures.asObservable();
+
+  protected searchInput = new FormControl<string>('');
+
   constructor(
     public albumService: AlbumService,
     public authService: AuthService
   ) {}
 
-  getFilteredFigures(
-    figures: Figure[],
+  getCategorizedFigures(
+    figures: Figure[] | null,
     section: FigureSection,
     category: FigureCategory,
     prefix: FigurePrefix
@@ -49,5 +54,11 @@ export class AlbumComponent {
   }
   toggleFigureState(album: Album, figure: Figure): void {
     this.albumService.toggleFigureState(album, figure);
+  }
+
+  // filterFigures(keyword: string, figures: Figure[]): Figure[] {
+  filterFigures(k: any) {
+    console.log(k);
+    // return figures.filter((figure) => figure.prefix.includes(keyword));
   }
 }

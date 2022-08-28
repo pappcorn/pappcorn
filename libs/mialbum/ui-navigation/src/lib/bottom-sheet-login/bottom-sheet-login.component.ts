@@ -38,6 +38,7 @@ export class BottomSheetLoginComponent {
     }),
   });
   acceptTerms = false;
+  hidePassword = true;
 
   constructor(
     private _bottomSheetRef: MatBottomSheetRef<BottomSheetLoginComponent>,

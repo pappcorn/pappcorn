@@ -2,6 +2,7 @@ import {
   ChangeDetectionStrategy,
   Component,
   EventEmitter,
+  Input,
   Output,
 } from '@angular/core';
 
@@ -12,9 +13,11 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ToolbarWebComponent {
+  @Input() searchKeyword: string | null = '';
   @Output() public toggleSidenav = new EventEmitter();
   @Output() public toggleSubtoolbar = new EventEmitter();
-  protected showFilters = false;
+  @Output() public searchInput = new EventEmitter<string>();
+  protected showFilters = true;
   _toggleSubtoolbar() {
     this.toggleSubtoolbar.emit();
     this.showFilters = !this.showFilters;

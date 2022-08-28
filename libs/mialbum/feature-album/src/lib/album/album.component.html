@@ -1,40 +1,51 @@
-<span class="mat-body-1">
-  Esta es tu lista completa del álbum, selecciona las figuritas que ya tienes.
-</span>
-<div *ngIf="album$ | async as album">
-  <div *ngFor="let section of sections">
-    <div *ngFor="let category of categories">
-      <div *ngFor="let prefix of prefixes">
-        <div
-          *ngIf="
-            getFilteredFigures(
-              album.figures,
-              section,
-              category,
-              prefix
-            ) as filteredFigures
-          "
-          flexLayout="column"
-        >
-          <div *ngIf="filteredFigures.length > 0" class="my-16">
-            <span> {{ section }} - {{ category }} </span>
-            <span
-              *ngIf="prefix !== FigurePrefix.FWC && prefix !== FigurePrefix.C"
-            >
-              - {{ prefix | teamName }}
-            </span>
-          </div>
+<div *ngIf="album$ | async as album" class="album-container">
+  <span class="mat-body-1">
+    Esta es tu lista completa del álbum, selecciona las figuritas que ya tienes.
+  </span>
+  <div *ngIf="albumService.filteredFigures$ | async as filteredFigures">
+    <div *ngFor="let section of sections">
+      <div *ngFor="let category of categories">
+        <div *ngFor="let prefix of prefixes">
           <div
-            fxLayout="row wrap"
-            fxLayoutGap="16px grid"
-            fxLayoutAlign="flex-start"
+            *ngIf="
+              getCategorizedFigures(
+                filteredFigures,
+                section,
+                category,
+                prefix
+              ) as categorizedFigures
+            "
+            flexLayout="column"
           >
-            <div *ngFor="let figure of filteredFigures">
+            <div *ngIf="categorizedFigures.length > 0">
+              <div class="my-32">
+                <span
+                  class="icon-flag icon-flag--{{
+                    prefix | sectionIcon: category
+                  }}"
+                >
+                </span>
+                <span> {{ section | sectionName }} - {{ category }} </span>
+                <span
+                  *ngIf="
+                    prefix !== FigurePrefix.FWC && prefix !== FigurePrefix.C
+                  "
+                >
+                  - {{ prefix | teamName }}
+                </span>
+              </div>
+            </div>
+
+            <div
+              fxLayout="row wrap"
+              fxLayoutGap="32px grid"
+              fxLayoutAlign="flex-start"
+            >
               <pappcorn-figure
+                *ngFor="let figure of categorizedFigures"
                 [figure]="figure"
                 (toggleFigureState)="toggleFigureState(album, figure)"
-              >
-              </pappcorn-figure>
+              ></pappcorn-figure>
             </div>
           </div>
         </div>

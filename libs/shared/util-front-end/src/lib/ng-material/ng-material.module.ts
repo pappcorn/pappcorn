@@ -8,7 +8,9 @@ import { MatInputModule } from '@angular/material/input';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 const matModules = [
   MatBottomSheetModule,
@@ -20,6 +22,8 @@ const matModules = [
   MatRadioModule,
   MatSidenavModule,
   MatToolbarModule,
+  MatSnackBarModule,
+  MatProgressSpinnerModule,
 ];
 
 @NgModule({

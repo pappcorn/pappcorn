@@ -5,8 +5,8 @@ import { FigurePrefix } from '@pappcorn/mialbum/util-interfaces';
   name: 'teamName',
 })
 export class TeamNamePipe implements PipeTransform {
-  transform(value: FigurePrefix): string {
-    switch (value) {
+  transform(prefix: FigurePrefix): string {
+    switch (prefix) {
       case FigurePrefix.QAT:
         return 'Qatar';
       case FigurePrefix.ECU:
@@ -72,7 +72,7 @@ export class TeamNamePipe implements PipeTransform {
       case FigurePrefix.KOR:
         return 'Korea';
       default:
-        return '';
+        return prefix;
     }
   }
 }

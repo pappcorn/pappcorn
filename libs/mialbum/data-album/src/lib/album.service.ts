@@ -17,6 +17,7 @@ import {
   FigureType,
   FirestoreCollections,
 } from '@pappcorn/mialbum/util-interfaces';
+import { NotificationsService } from '@pappcorn/shared/data-auth';
 import { BehaviorSubject, combineLatest, map, Observable, tap } from 'rxjs';
 import { generateNewAlbum } from './new-album.generator';
 
@@ -27,14 +28,25 @@ export class AlbumService {
   private _album = new BehaviorSubject<Album>({} as Album);
   private _serverAlbum = new BehaviorSubject<Album>({} as Album);
   private serverAlbum$: Observable<Album> = this._serverAlbum.asObservable();
+  private _filteredFigures = new BehaviorSubject<Figure[]>([]);
+  private _searchKeyword = new BehaviorSubject<string>('');
+  private _loading = new BehaviorSubject<boolean>(false);
 
   public album$: Observable<Album> = this._album.asObservable();
   public unSavedChanges$: Observable<boolean> = combineLatest([
     this.serverAlbum$,
     this.album$,
   ]).pipe(map(([serverAlbum, album]) => Boolean(serverAlbum != album)));
+  public filteredFigures$: Observable<Figure[]> =
+    this._filteredFigures.asObservable();
+  public searchKeyword$: Observable<string> =
+    this._searchKeyword.asObservable();
+  public loading$: Observable<boolean> = this._loading.asObservable();
 
-  constructor(private firestore: Firestore) {}
+  constructor(
+    private firestore: Firestore,
+    private notificationService: NotificationsService
+  ) {}
 
   /**
    * Creates a new album for a specific user
@@ -49,10 +61,14 @@ export class AlbumService {
         doc(this.firestore, FirestoreCollections.ALBUMS, key),
         newAlbum
       );
-      console.log('✅ New album created', newAlbum.key);
+      this.notificationService.showSuccess(
+        '✅ Nuevo album creado con éxito',
+        'Yey!'
+      );
+
       return newAlbum;
     } catch (error) {
-      console.log('📛 Error creating new album', newAlbum, error);
+      this.notificationService.showError('📛 Error creating new album', 'Ouch');
       return {} as Album;
     }
   }
@@ -62,6 +78,7 @@ export class AlbumService {
    * @param userId user id of the albumcreator
    */
   async getUserAlbum(userId: string = ''): Promise<void> {
+    this._loading.next(true);
     let album = {} as Album;
     if (userId > '') {
       const albumsRef = collection(this.firestore, FirestoreCollections.ALBUMS);
@@ -73,17 +90,21 @@ export class AlbumService {
       this._serverAlbum.next(album);
       if (this.totalFiguresCompleted(album) !== 0) {
         this._album.next(album);
+        this._filteredFigures.next(album.figures);
       } else {
         this._album.next({
           ...album,
-          figures: this._album.getValue().figures,
+          figures: this._album.getValue().figures ?? album.figures,
         } as Album);
+        this._filteredFigures.next(this._album.getValue().figures);
       }
     } else {
       album = generateNewAlbum('visitor', `Visitor's album`, this.generateId());
       this._serverAlbum.next({} as Album);
       this._album.next(album);
+      this._filteredFigures.next(album.figures);
     }
+    this._loading.next(false);
   }
 
   /**
@@ -98,6 +119,7 @@ export class AlbumService {
       album.figures[figureIndex] = newFigure;
       const newAlbum = { ...album, figures: [...album.figures] };
       this._album.next(newAlbum);
+      this.filterFigures(this._searchKeyword.getValue());
     }
   }
 
@@ -105,6 +127,7 @@ export class AlbumService {
    * Save the current client album to the server
    */
   saveAlbum(): void {
+    this._loading.next(true);
     const serverAlbum = this._serverAlbum.getValue();
     const localAlbum = this._album.getValue();
     const newServerAlbum = {
@@ -116,17 +139,27 @@ export class AlbumService {
       doc(this.firestore, FirestoreCollections.ALBUMS, serverAlbum.key),
       newServerAlbum as DocumentData
     )
-      .then((snap) => {
-        console.log('✅ Album actualizado con éxito', snap);
+      .then(() => {
+        this.notificationService.showSuccess(
+          '✅ Album actualizado con éxito',
+          'Yey!'
+        );
         this._serverAlbum.next(newServerAlbum);
         this._album.next(newServerAlbum);
+        this.filterFigures(this._searchKeyword.getValue());
+        this._loading.next(false);
       })
-      .catch((error: Error) =>
+      .catch((error: Error) => {
+        this.notificationService.showError(
+          '📛 Algo pasó, por favor intenta guardar nuevamente los cambios.',
+          'Ouch'
+        );
         console.log(
           '📛 Algo pasó, por favor intenta guardar nuevamente los cambios.',
           error
-        )
-      );
+        );
+        this._loading.next(false);
+      });
   }
 
   private generateId(): string {
@@ -137,6 +170,15 @@ export class AlbumService {
       autoId += chars.charAt(Math.floor(Math.random() * chars.length));
     }
     return autoId;
+  }
+
+  filterFigures(keyword: string) {
+    this._searchKeyword.next(keyword);
+    const album = this._album.getValue();
+    const filteredFigures = album.figures.filter((figure) => {
+      return figure.prefix.toUpperCase().includes(keyword.toUpperCase());
+    });
+    this._filteredFigures.next(filteredFigures);
   }
 
   totalFigures(album: Album): number {

@@ -1,0 +1,65 @@
+@use 'sass:math';
+.album-container {
+  padding-bottom: 250px;
+}
+
+$height: 15px;
+$total-height: 540px;
+$percentage: math.percentage($height / ($total-height - $height));
+
+$flags: (
+  0: FWC,
+  1: STADIUM,
+  2: MUSEUM,
+  3: QAT,
+  4: ECU,
+  5: SEN,
+  6: NED,
+  7: ENG,
+  8: IRN,
+  9: USA,
+  10: WAL,
+  11: ARG,
+  12: KSA,
+  13: MEX,
+  14: POL,
+  15: FRA,
+  16: AUS,
+  17: DEN,
+  18: TUN,
+  19: ESP,
+  20: CRC,
+  21: GER,
+  22: JPN,
+  23: BEL,
+  24: CAN,
+  25: MAR,
+  26: CRO,
+  27: BRA,
+  28: SRB,
+  29: SUI,
+  30: CMR,
+  31: POR,
+  32: GHA,
+  33: URU,
+  34: KOR,
+  35: C,
+);
+
+@each $key, $value in $flags {
+  .icon-flag.icon-flag--#{$value} {
+    background-position-y: $percentage * $key;
+  }
+}
+
+.icon-flag {
+  background: url('./../../../../../../apps/mialbum/src/assets/figures-icons.svg')
+    no-repeat;
+  background-size: 100%;
+  background-position-x: 0;
+  height: 15px;
+  overflow: hidden;
+  width: 22.5px;
+  min-width: 22.5px;
+  display: inline-block;
+}

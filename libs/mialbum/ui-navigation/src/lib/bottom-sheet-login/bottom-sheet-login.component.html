@@ -1,8 +1,13 @@
-<div class="bottom-sheet">
-  <div *ngIf="authService.user$ | async as user; else noUser">
+<div *ngIf="authService.user$ | async as user; else noUser">
+  <div class="bottom-sheet__logged">
     <p class="mat-title">¡Hola {{ user.displayName }}!</p>
+    <p class="mat-body-1">
+      ¡Qué bueno verte de vuelta! Continúa llenando tu Álbum.
+    </p>
   </div>
-  <ng-template #noUser>
+</div>
+<ng-template #noUser>
+  <div class="bottom-sheet">
     <div *ngIf="!showCreateAccount && !showLogin">
       <p class="mat-title">¡Empecemos!</p>
       <p class="mat-body-1">
@@ -14,13 +19,6 @@
         fxLayout="column"
         fxLayoutGap="20px"
       >
-        <button
-          mat-raised-button
-          color="primary"
-          (click)="showCreateAccount = true"
-        >
-          CREAR CUENTA
-        </button>
         <button mat-raised-button color="accent" (click)="showLogin = true">
           INICIAR SESIÓN
         </button>
@@ -30,6 +28,13 @@
           (click)="authService.loginWithGoogle()"
         >
           INICIAR SESIÓN CON GOOGLE
+        </button>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="showCreateAccount = true"
+        >
+          CREAR CUENTA
         </button>
       </div>
     </div>
@@ -46,7 +51,14 @@
           </mat-form-field>
           <mat-form-field appearance="fill" class="w-100">
             <mat-label>Contraseña</mat-label>
-            <input matInput formControlName="password" />
+            <input
+              matInput
+              formControlName="password"
+              [type]="hidePassword ? 'password' : 'text'"
+            />
+            <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{
+              hidePassword ? 'visibility_off' : 'visibility'
+            }}</mat-icon>
           </mat-form-field>
           <mat-form-field appearance="fill" class="w-100">
             <mat-label>Nombre</mat-label>
@@ -55,7 +67,11 @@
         </form>
         <mat-radio-group [(ngModel)]="acceptTerms">
           <mat-radio-button [value]="true">
-            Acepta nuestra <a href="">política de datos.</a>
+            Acepta nuestra
+            <a
+              href="https://pappcorn.com/terminos-y-condiciones-mi-album?utm_medium=papp-icon&utm_source=mialbum-web&utm_campaign=papp-icon_mialbum-web"
+              >política de datos.</a
+            >
           </mat-radio-button>
         </mat-radio-group>
         <span class="mat-caption"
@@ -90,7 +106,14 @@
           </mat-form-field>
           <mat-form-field appearance="fill" class="w-100">
             <mat-label>Contraseña</mat-label>
-            <input matInput formControlName="password" />
+            <input
+              matInput
+              formControlName="password"
+              [type]="hidePassword ? 'password' : 'text'"
+            />
+            <mat-icon matSuffix (click)="hidePassword = !hidePassword">{{
+              hidePassword ? 'visibility_off' : 'visibility'
+            }}</mat-icon>
           </mat-form-field>
         </form>
         <div class="text-center">
@@ -110,5 +133,5 @@
         </div>
       </div>
     </div>
-  </ng-template>
-</div>
+  </div>
+</ng-template>

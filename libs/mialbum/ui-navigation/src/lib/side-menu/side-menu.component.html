@@ -16,7 +16,7 @@
     </div>
     <mat-progress-bar
       mode="determinate"
-      color="accent"
+      color="warn"
       [value]="(totalFiguresCompleted() / totalFigures()) * 100"
     ></mat-progress-bar>
     <span class="mat-caption">
@@ -73,27 +73,38 @@
       </div>
     </div>
   </div>
-
-  <div class="bottom-button">
-    <div class="text-center">
-      <button
-        *ngIf="!user"
-        mat-raised-button
-        color="primary"
-        (click)="openBottomSheet()"
+</div>
+<div fxLayout="column" fxLayoutAlign="center center">
+  <button
+    *ngIf="!user"
+    mat-raised-button
+    color="primary"
+    (click)="openBottomSheet()"
+  >
+    INICIAR SESIÓN
+  </button>
+  <div
+    class="my-16 papp-icon text-white"
+    fxLayout="column"
+    fxLayoutAlign="center center"
+  >
+    <a
+      href="https://pappcorn.com?utm_medium=papp-icon&utm_source=mialbum-web&utm_campaign=papp-icon_mialbum-web"
+      target="_blank"
+    >
+      <img src="assets/papp-icon.svg" alt="crispeta equipo pappcorn" />
+    </a>
+    <a
+      href="https://pappcorn.com?utm_medium=papp-icon&utm_source=mialbum-web&utm_campaign=papp-icon_mialbum-web"
+      target="_blank"
+    >
+      <span class="mat-body-1 my-16 text-white"
+        >Creada por el #EquipoPappCorn</span
       >
-        INICIAR SESIÓN
-      </button>
-    </div>
-    <div class="my-16 papp-icon" fxLayout="row" fxLayoutAlign="space-between">
-      <a href="https://www.pappcorn.com" target="_blank">
-        <img src="assets/papp-icon.svg" alt="crispeta equipo pappcorn" />
-      </a>
-      <span class="mat-body-1 mx-8">Creada por el #EquipoPappCorn</span>
-    </div>
-    <button *ngIf="user" mat-button class="text-white" (click)="logout.emit()">
-      <mat-icon>logout</mat-icon>
-      Salir de tu cuenta
-    </button>
+    </a>
   </div>
+  <button *ngIf="user" mat-button class="text-white" (click)="logout.emit()">
+    <mat-icon>logout</mat-icon>
+    Salir de tu cuenta
+  </button>
 </div>

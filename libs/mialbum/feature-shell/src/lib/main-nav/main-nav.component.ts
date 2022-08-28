@@ -1,8 +1,9 @@
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { AlbumService } from '@pappcorn/mialbum/data-album';
-import { AuthService } from '@pappcorn/shared/data-auth';
+import { AuthService, NotificationsService } from '@pappcorn/shared/data-auth';
 import { Subject } from 'rxjs';
-import { shareReplay, takeUntil, tap } from 'rxjs/operators';
+import { filter, shareReplay, takeUntil, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'pappcorn-main-nav',
@@ -12,10 +13,12 @@ import { shareReplay, takeUntil, tap } from 'rxjs/operators';
 })
 export class MainNavComponent implements OnDestroy {
   destroy$ = new Subject();
-  subToolbarOpen = false;
+  subToolbarOpen = true;
   constructor(
     readonly albumService: AlbumService,
-    readonly authService: AuthService
+    readonly authService: AuthService,
+    readonly notificationsService: NotificationsService,
+    private _snackBar: MatSnackBar
   ) {
     this.authService.user$
       .pipe(
@@ -30,9 +33,33 @@ export class MainNavComponent implements OnDestroy {
         shareReplay()
       )
       .subscribe();
+
+    this.notificationsService.notify$
+      .pipe(
+        takeUntil(this.destroy$),
+        filter((notification) => notification.message > ''),
+        tap((notification) =>
+          this.openSnackBar(
+            notification.message,
+            notification.action,
+            notification.duration
+          )
+        )
+      )
+      .subscribe();
   }
 
   ngOnDestroy(): void {
     this.destroy$.complete();
+  }
+
+  openSnackBar(
+    message: string,
+    action: string = 'OK',
+    duration: number = 3000
+  ) {
+    this._snackBar.open(message, action, {
+      duration,
+    });
   }
 }
