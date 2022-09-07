@@ -119,7 +119,7 @@
         <div class="text-center">
           <button
             mat-raised-button
-            [disabled]="createAccountForm.invalid || !acceptTerms"
+            [disabled]="loginForm.invalid"
             color="accent"
             (click)="
               authService.loginWithUserAndPassword(

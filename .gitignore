@@ -47,3 +47,5 @@ Thumbs.db
 
 # Apps Environments
 /apps/mialbum/src/environments/**
+
+/keys/

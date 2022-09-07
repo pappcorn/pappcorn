@@ -84,19 +84,26 @@ export class AlbumService {
       const albumsRef = collection(this.firestore, FirestoreCollections.ALBUMS);
       const userAlbumsQuery = query(albumsRef, where('owner', '==', userId));
       const albumsSnapshot = await getDocs(userAlbumsQuery);
-      album = albumsSnapshot.empty
-        ? await this.createNewAlbum(userId, 'Mi álbum')
-        : albumsSnapshot.docs.map((doc) => doc.data() as Album)[0];
-      this._serverAlbum.next(album);
-      if (this.totalFiguresCompleted(album) !== 0) {
-        this._album.next(album);
-        this._filteredFigures.next(album.figures);
+      if (albumsSnapshot) {
+        album = albumsSnapshot.empty
+          ? await this.createNewAlbum(userId, 'Mi álbum')
+          : albumsSnapshot.docs.map((doc) => doc.data() as Album)[0];
+        this._serverAlbum.next(album);
+        if (this.totalFiguresCompleted(album) !== 0) {
+          this._album.next(album);
+          this._filteredFigures.next(album.figures);
+        } else {
+          this._album.next({
+            ...album,
+            figures: this._album.getValue().figures ?? album.figures,
+          } as Album);
+          this._filteredFigures.next(this._album.getValue().figures);
+        }
       } else {
-        this._album.next({
-          ...album,
-          figures: this._album.getValue().figures ?? album.figures,
-        } as Album);
-        this._filteredFigures.next(this._album.getValue().figures);
+        this.notificationService.showError(
+          '😬 Ocurrió un error cargando la información. Por favor refresca la página.',
+          'OK'
+        );
       }
     } else {
       album = generateNewAlbum('visitor', `Visitor's album`, this.generateId());

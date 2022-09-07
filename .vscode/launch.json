@@ -1,0 +1,63 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Current Device: Debug",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "debug"
+    },
+    {
+      "name": "Current Device: Profile",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "profile"
+    },
+    {
+      "name": "Current Device: Release Mode",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release"
+    },
+    {
+      "name": "Android: Debug",
+      "request": "launch",
+      "type": "dart",
+      "deviceId": "android",
+      "flutterMode": "debug"
+    },
+    {
+      "name": "Android: Profile",
+      "request": "launch",
+      "type": "dart",
+      "deviceId": "android",
+      "flutterMode": "profile"
+    },
+    {
+      "name": "iPhone: Debug",
+      "request": "launch",
+      "type": "dart",
+      "deviceId": "iphone",
+      "flutterMode": "debug"
+    },
+    {
+      "name": "iPhone: Profile",
+      "request": "launch",
+      "type": "dart",
+      "deviceId": "iphone",
+      "flutterMode": "profile"
+    },
+    {
+      "name": "Tests",
+      "type": "dart",
+      "request": "launch",
+      "program": "test/"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "Debug: All Mobile",
+      "configurations": ["Android: Debug", "iPhone: Debug"]
+    }
+  ]
+}

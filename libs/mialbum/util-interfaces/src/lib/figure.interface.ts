@@ -26,16 +26,6 @@ export enum FigureCategory {
   FIFA_MUSEUM = 'Museo FIFA',
   TEAM_BELIEVERS = 'Team Believers',
 }
-export enum FigureGroup {
-  A = 'Gupo A',
-  B = 'Gupo B',
-  C = 'Gupo C',
-  D = 'Gupo D',
-  E = 'Gupo E',
-  F = 'Gupo F',
-  G = 'Gupo G',
-  H = 'Gupo H',
-}
 
 export enum FigureType {
   EMBLEM = 'Escudo',
