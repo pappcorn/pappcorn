@@ -14,6 +14,8 @@ import {
   Album,
   Figure,
   FigureCategory,
+  FigurePrefix,
+  FigureSection,
   FigureType,
   FirestoreCollections,
 } from '@pappcorn/mialbum/util-interfaces';
@@ -292,5 +294,83 @@ export class AlbumService {
         (figure) => figure.type === FigureType.PLAYER && figure.checked === true
       ).length ?? 0
     );
+  }
+
+  async convertToBrazilianAlbum(album: Album): Promise<Album> {
+    const currentFigures = album.figures;
+    const brazilianFigures = currentFigures;
+    const countries = [
+      { cat: FigureCategory.GROUP_A, prefix: FigurePrefix.QAT },
+      { cat: FigureCategory.GROUP_A, prefix: FigurePrefix.ECU },
+      { cat: FigureCategory.GROUP_A, prefix: FigurePrefix.SEN },
+      { cat: FigureCategory.GROUP_A, prefix: FigurePrefix.NED },
+      { cat: FigureCategory.GROUP_B, prefix: FigurePrefix.ENG },
+      { cat: FigureCategory.GROUP_B, prefix: FigurePrefix.IRN },
+      { cat: FigureCategory.GROUP_B, prefix: FigurePrefix.USA },
+      { cat: FigureCategory.GROUP_B, prefix: FigurePrefix.WAL },
+      { cat: FigureCategory.GROUP_C, prefix: FigurePrefix.ARG },
+      { cat: FigureCategory.GROUP_C, prefix: FigurePrefix.KSA },
+      { cat: FigureCategory.GROUP_C, prefix: FigurePrefix.MEX },
+      { cat: FigureCategory.GROUP_C, prefix: FigurePrefix.POL },
+      { cat: FigureCategory.GROUP_D, prefix: FigurePrefix.FRA },
+      { cat: FigureCategory.GROUP_D, prefix: FigurePrefix.AUS },
+      { cat: FigureCategory.GROUP_D, prefix: FigurePrefix.DEN },
+      { cat: FigureCategory.GROUP_D, prefix: FigurePrefix.TUN },
+      { cat: FigureCategory.GROUP_E, prefix: FigurePrefix.ESP },
+      { cat: FigureCategory.GROUP_E, prefix: FigurePrefix.CRC },
+      { cat: FigureCategory.GROUP_E, prefix: FigurePrefix.GER },
+      { cat: FigureCategory.GROUP_E, prefix: FigurePrefix.JPN },
+      { cat: FigureCategory.GROUP_F, prefix: FigurePrefix.BEL },
+      { cat: FigureCategory.GROUP_F, prefix: FigurePrefix.CAN },
+      { cat: FigureCategory.GROUP_F, prefix: FigurePrefix.MAR },
+      { cat: FigureCategory.GROUP_F, prefix: FigurePrefix.CRO },
+      { cat: FigureCategory.GROUP_G, prefix: FigurePrefix.BRA },
+      { cat: FigureCategory.GROUP_G, prefix: FigurePrefix.SRB },
+      { cat: FigureCategory.GROUP_G, prefix: FigurePrefix.SUI },
+      { cat: FigureCategory.GROUP_G, prefix: FigurePrefix.CMR },
+      { cat: FigureCategory.GROUP_H, prefix: FigurePrefix.POR },
+      { cat: FigureCategory.GROUP_H, prefix: FigurePrefix.GHA },
+      { cat: FigureCategory.GROUP_H, prefix: FigurePrefix.URU },
+      { cat: FigureCategory.GROUP_H, prefix: FigurePrefix.KOR },
+    ];
+
+    countries.forEach((country) => {
+      const lastTeamIndex = currentFigures.findIndex(
+        (figure) => figure.prefix === country.prefix && figure.number === 19
+      );
+      const colombianShieldIndex = currentFigures.findIndex(
+        (figure) => figure.prefix === country.prefix && figure.number === 1
+      );
+      const brazilianShieldIndex = currentFigures.findIndex(
+        (figure) => figure.prefix === country.prefix && figure.number === 2
+      );
+      brazilianFigures[colombianShieldIndex].type = FigureType.TEAM;
+      brazilianFigures[brazilianShieldIndex].type = FigureType.EMBLEM;
+      const newFigure = {
+        section: FigureSection.TEAM,
+        checked: false,
+        category: country.cat,
+        prefix: country.prefix,
+        type: FigureType.PLAYER,
+        number: 20,
+      };
+      // Add new figure to array
+      brazilianFigures.splice(lastTeamIndex + 1, 0, newFigure);
+    });
+    const newAlbum = { ...album, figures: brazilianFigures };
+    try {
+      await setDoc(
+        doc(this.firestore, FirestoreCollections.ALBUMS, album.key),
+        newAlbum
+      );
+      this.notificationService.showSuccess(
+        '✅ Álbum actualizado con éxito',
+        'Yey!'
+      );
+      return newAlbum;
+    } catch (error) {
+      this.notificationService.showError('📛 Error updating album', 'Ouch');
+      return {} as Album;
+    }
   }
 }

@@ -2,6 +2,17 @@
   <span class="mat-body-1">
     Esta es tu lista completa del álbum, selecciona las figuritas que ya tienes.
   </span>
+
+  <!-- Show only for user who wants to change the album to brazilian / mexican album -->
+  <!-- <button
+    *ngIf="false"
+    (click)="convertAlbum(album)"
+    mat-raised-button
+    color="primary"
+  >
+    CONVERT
+  </button> -->
+
   <div *ngIf="albumService.filteredFigures$ | async as filteredFigures">
     <div *ngFor="let section of sections">
       <div *ngFor="let category of categories">

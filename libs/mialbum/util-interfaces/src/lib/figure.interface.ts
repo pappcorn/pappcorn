@@ -30,6 +30,7 @@ export enum FigureCategory {
 export enum FigureType {
   EMBLEM = 'Escudo',
   PLAYER = 'Jugador',
+  TEAM = 'Equipo',
 }
 
 export enum FigurePrefix {

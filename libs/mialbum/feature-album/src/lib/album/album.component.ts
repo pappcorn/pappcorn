@@ -61,4 +61,8 @@ export class AlbumComponent {
     console.log(k);
     // return figures.filter((figure) => figure.prefix.includes(keyword));
   }
+
+  convertAlbum(album: Album): void {
+    this.albumService.convertToBrazilianAlbum(album);
+  }
 }
