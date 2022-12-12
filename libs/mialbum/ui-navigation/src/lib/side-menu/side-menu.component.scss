@@ -1,0 +1,31 @@
+.side-menu-container {
+  padding-top: 32px;
+  padding-bottom: 32px;
+  padding-left: 52px;
+  padding-right: 52px;
+}
+
+.album-summary-container {
+  position: relative;
+  padding-top: 32px;
+  display: contents;
+  overflow-y: scroll;
+  max-width: fit-content;
+}
+
+.mat-display-1 {
+  margin-bottom: 12px;
+}
+
+.bottom-text {
+  margin-top: auto;
+  margin-bottom: 12px;
+}
+
+.summary-list {
+  margin-top: 20px;
+}
+
+.spacer-60 {
+  height: 60px;
+}

@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "mialbum-dev"
+  },
+  "targets": {
+    "mialbum-dev": {
+      "hosting": {
+        "mialbum-dev": [
+          "mialbum-dev"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}

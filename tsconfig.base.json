@@ -1,0 +1,36 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "rootDir": ".",
+    "sourceMap": true,
+    "declaration": false,
+    "moduleResolution": "node",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "importHelpers": true,
+    "target": "es2015",
+    "module": "esnext",
+    "lib": ["es2017", "dom"],
+    "skipLibCheck": true,
+    "skipDefaultLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@pappcorn/mialbum/data-album": ["libs/mialbum/data-album/src/index.ts"],
+      "@pappcorn/mialbum/feature-album": [
+        "libs/mialbum/feature-album/src/index.ts"
+      ],
+      "@pappcorn/mialbum/feature-shell": [
+        "libs/mialbum/feature-shell/src/index.ts"
+      ],
+      "@pappcorn/mialbum/ui-navigation": [
+        "libs/mialbum/ui-navigation/src/index.ts"
+      ],
+      "@pappcorn/mialbum/util-interfaces": [
+        "libs/mialbum/util-interfaces/src/index.ts"
+      ],
+      "@pappcorn/shared/data-auth": ["libs/shared/data-auth/src/index.ts"],
+      "@pappcorn/ui": ["libs/shared/util-front-end/src/index.ts"]
+    }
+  },
+  "exclude": ["node_modules", "tmp"]
+}

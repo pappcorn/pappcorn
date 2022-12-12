@@ -1,0 +1,100 @@
+{
+  "projectType": "application",
+  "sourceRoot": "apps/mialbum/src",
+  "prefix": "pappcorn",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/mialbum",
+        "index": "apps/mialbum/src/index.html",
+        "main": "apps/mialbum/src/main.ts",
+        "polyfills": "apps/mialbum/src/polyfills.ts",
+        "tsConfig": "apps/mialbum/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": ["apps/mialbum/src/favicon.ico", "apps/mialbum/src/assets"],
+        "styles": ["apps/mialbum/src/styles.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/mialbum/src/environments/environment.ts",
+              "with": "apps/mialbum/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "mialbum:build:production"
+        },
+        "development": {
+          "browserTarget": "mialbum:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "mialbum:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/mialbum/src/**/*.ts",
+          "apps/mialbum/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/mialbum"],
+      "options": {
+        "jestConfig": "apps/mialbum/jest.config.js",
+        "passWithNoTests": true
+      }
+    },
+    "deploy": {
+      "executor": "@angular/fire:deploy",
+      "options": {
+        "prerender": false,
+        "ssr": false,
+        "browserTarget": "mialbum:build:production",
+        "firebaseProject": "mialbum-dev",
+        "firebaseHostingSite": "mialbum-dev"
+      }
+    }
+  },
+  "tags": []
+}

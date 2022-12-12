@@ -1,0 +1,12 @@
+<div *ngIf="figure">
+  <button
+    mat-raised-button
+    [color]="figure.checked ? 'accent' : ''"
+    (click)="toggleFigure()"
+  >
+    <div fxLayout="column">
+      <span>{{ figure.prefix }}</span>
+      <span>{{ figure.number }}</span>
+    </div>
+  </button>
+</div>

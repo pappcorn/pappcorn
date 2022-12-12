@@ -1,0 +1,25 @@
+{
+  "projectType": "library",
+  "sourceRoot": "libs/mialbum/ui-navigation/src",
+  "prefix": "pappcorn",
+  "targets": {
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/libs/mialbum/ui-navigation"],
+      "options": {
+        "jestConfig": "libs/mialbum/ui-navigation/jest.config.ts",
+        "passWithNoTests": true
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "libs/mialbum/ui-navigation/**/*.ts",
+          "libs/mialbum/ui-navigation/**/*.html"
+        ]
+      }
+    }
+  },
+  "tags": []
+}

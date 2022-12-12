@@ -1,0 +1,35 @@
+.side-menu {
+  position: fixed;
+  width: 360px;
+  height: 100%;
+  left: 0px;
+  top: 0px;
+  background: linear-gradient(180deg, #550067 0%, #2b0748 100%);
+  z-index: 5;
+}
+
+mat-drawer-content {
+  padding: 12px;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  display: contents;
+}
+
+@mixin main-padding() {
+  padding-left: 28px;
+  padding-right: 28px;
+}
+.main-content {
+  padding-top: 92px;
+  @include main-padding();
+
+  &__subtoolbar {
+    padding-top: 160px;
+    @include main-padding;
+  }
+}
+
+mat-simple-snackbar-action {
+  color: #ffffff;
+}

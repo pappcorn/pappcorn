@@ -1,0 +1,16 @@
+.toolbar {
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.search-input {
+  width: 100%;
+  padding: 12px;
+}
+
+.toolbar-row {
+  height: 80px;
+}

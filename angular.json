@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "projects": {
+    "mialbum": "apps/mialbum",
+    "mialbum-data-album": "libs/mialbum/data-album",
+    "mialbum-e2e": "apps/mialbum-e2e",
+    "mialbum-feature-album": "libs/mialbum/feature-album",
+    "mialbum-feature-shell": "libs/mialbum/feature-shell",
+    "mialbum-ui-navigation": "libs/mialbum/ui-navigation",
+    "mialbum-util-interfaces": "libs/mialbum/util-interfaces",
+    "shared-data-auth": "libs/shared/data-auth",
+    "shared-util-front-end": "libs/shared/util-front-end",
+    "mialbum-app": "apps/mialbum-app"
+  }
+}

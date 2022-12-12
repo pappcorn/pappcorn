@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "124812028575",
+    "project_id": "mialbum-dev",
+    "storage_bucket": "mialbum-dev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:124812028575:android:affbd8cc77a177cd8050aa",
+        "android_client_info": {
+          "package_name": "com.pappcorn.mialbum"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "124812028575-e3sasm0iq2j0a5gs45ph931jg20ln2lm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pappcorn.mialbum",
+            "certificate_hash": "c3891c29abab2b1e66257a0a705edc7d87724e82"
+          }
+        },
+        {
+          "client_id": "124812028575-6pvpbtvdprhn3l3r7h8u892cv6bvpr3r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqw0xb_Fa3pcyUPu4VFrtPBvM6PNNiNog"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "124812028575-6pvpbtvdprhn3l3r7h8u892cv6bvpr3r.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "124812028575-lrlfh1q4od8tjr3jmtsluqldecia5f1t.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.pappcorn.mialbum"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,17 @@
+:host {
+  display: block;
+  height: 100%;
+}
+.loading {
+  padding-top: 320px;
+  &__text {
+    padding-top: 64px;
+  }
+  &__footer {
+    position: absolute;
+    bottom: 32px;
+    &__text {
+      padding-top: 16px;
+    }
+  }
+}
